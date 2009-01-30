@@ -1,0 +1,25 @@
+02/20/2008
+
+1) fixed bug: commas were missing in front of menubar and height attribute
+
+
+02/13/2008
+
+1) added location and menubar settings as suggested by Matthew
+
+01/21/2008
+
+1) added new setting "createnew" which when set to false will make all popups open in the same window
+2) fixed a major bug where "settings" wasn't vared.
+
+05/14/2007
+
+1) removed trailing comma in settings that was causing IE to bottom out with an error.
+
+04/04/2007:
+
+1) added profiles so you don't have to pass the settings for each link anymore.
+2) remove resize as a setting and add the correct setting resizable
+3) removed example text from this file and made an index.htm files to house example.
+4) add example of using profiles to the new examples page.
+5) example pulls the latest jquery library from jquery.com.

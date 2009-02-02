@@ -1,80 +1,144 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-	<title>rip747/popupwindow @ GitHub</title>
-	
+	<title>PopUpWindow Example</title>
 	<style type="text/css">
-		body {
-  		margin-top: 1.0em;
-  		background-color: #306ef7;
-		  font-family: "helvetica"; 
-  		color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-		h1 { font-size: 3.8em; color: #cf9108; margin-bottom: 3px; }
-		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #cf9108; }
-    h3 { text-align: center; color: #cf9108; }
-    a { color: #cf9108; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-		pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
+	body{font-family:Georgia; margin:10px;}
+	pre{background-color:#000; color:#FFF; border:1px solid red; padding:10px;}
+	a{text-decoration:none;}
+	a:hover{background-color:#FFFCCC;}
 	</style>
-	
+  	<script type="text/javascript"src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript" src="jquery.popupwindow.js"></script>
+   	<script type="text/javascript">
+	var profiles =
+	{
+
+		window800:
+		{
+			height:800,
+			width:800,
+			status:1
+		},
+
+		window200:
+		{
+			height:200,
+			width:200,
+			status:1,
+			resizable:0
+		},
+
+		windowCenter:
+		{
+			height:300,
+			width:400,
+			center:1
+		},
+		
+		windowNotNew:
+		{
+			height:300,
+			width:400,
+			center:1,
+			createnew:0
+		}
+
+	};
+
+
+   	$(function()
+	{
+   		$(".popupwindow").popupwindow(profiles);
+   	});
+	</script>
 </head>
-
 <body>
-  <a href="http://github.com/rip747/popupwindow"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-  
-  <div id="container">
+<a href="http://github.com/rip747/popupwindow"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+<h1>PopUWindow Examples</h1>
+<p>Takes a link and will create a popupwindow based on the href of the link. You can over ride the default setting by passing your own settings or profile name<br/>in the REL attribute of the link.</p>
+<dl>
+	<dt>Default settings example:</dt>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow">Example 1</a></dd>
+</dl>
 
-    <div class="download">
-      <a href="http://github.com/rip747/popupwindow/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/rip747/popupwindow/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-      
-    <h1><a href="http://github.com/rip747/popupwindow">popupwindow</a> 
-      <span class="small">by <a href="http://github.com/rip747">rip747</a></small></h1>
+<dl>
+	<dt>Custom settings example:</dt>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow" rel="height:400,width:400">Example 1</a> - height:400,width:400</dd>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow" rel="height:550,width:750,toolbar:1,scrollbars:1,status:1,resizable:0,left:50,top:100">Example 2</a> - height:550,width:750,toolbar:1,scrollbars:1,status:1,resizable:0,left:50,top:100</dd>	
+</dl>
 
-    <div class="description">
-      a jquery plugin for creating a javascript popupwindows
-    </div>
+<dl>
+	<dt>Profile examples:</dt>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow" rel="window800">Example 1</a> - window800</dd>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow" rel="window200">Example 2</a> - window200</dd>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow" rel="windowCenter">Example 3</a> - windowCenter</dd>
+</dl>
 
-    <h2>Authors</h2>
-<p>tony petruzzi (tpetruzzi@gmail.com)<br/><br/>      </p>
-<h2>Contact</h2>
-<p>tony petruzzi (tpetruzzi@gmail.com)<br/>      </p>
+<dl>
+	<dt>Same Window examples</dt>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow" rel="windowNotNew">Example 1</a> - windowNotNew</dd>
+	<dd><a href="http://www.jquery.com" class="popupwindow" rel="windowNotNew">Example 2</a> - windowNotNew</dd>
+</dl>
+
+<h2>Settings available:</h2>
+<pre>
+height:600, // sets the height in pixels of the window.
+width:600, // sets the width in pixels of the window.
+toolbar:0, // determines whether a toolbar (includes the forward and back buttons) is displayed {1 (YES) or 0 (NO)}.
+scrollbars:0, // determines whether scrollbars appear on the window {1 (YES) or 0 (NO)}.
+status:0, // whether a status line appears at the bottom of the window {1 (YES) or 0 (NO)}.
+resizable:1, // whether the window can be resized {1 (YES) or 0 (NO)}. Can also be overloaded using resizable.
+left:0, // left position when the window appears.
+top:0, // top position when the window appears.
+center:0, // should we center the window? {1 (YES) or 0 (NO)}. overrides top and left
+createnew:1 // should we create a new window for each occurance {1 (YES) or 0 (NO)}.
+</pre>
 
 
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/rip747/popupwindow/zipball/master">zip</a> or
-      <a href="http://github.com/rip747/popupwindow/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/rip747/popupwindow</pre>
-    </p>
-      
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/rip747/popupwindow">rip747/popupwindow</a>
-    </div>
-    
-  </div>
+<h3>jQuery code and profiles used in the examples above:</h3>
+<pre>
+var profiles =
+{
 
-  
+	window800:
+	{
+		height:800,
+		width:800,
+		status:1
+	},
+
+	window200:
+	{
+		height:200,
+		width:200,
+		status:1,
+		resizable:0
+	},
+
+	windowCenter:
+	{
+		height:300,
+		width:400,
+		center:1
+	},
+	
+	windowNotNew:
+	{
+		height:300,
+		width:400,
+		center:1,
+		createnew:0
+	}
+
+};
+
+
+$(function()
+{
+	$(".popupwindow").popupwindow(profiles);
+});
+</pre>
+
+
 </body>
 </html>

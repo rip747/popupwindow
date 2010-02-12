@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+	<title>PopUpWindow Example</title>
+	<style type="text/css">
+	body{font-family:Georgia; margin:10px;}
+	pre{background-color:#000; color:#FFF; border:1px solid red; padding:10px;}
+	a{text-decoration:none;}
+	a:hover{background-color:#FFFCCC;}
+	.download { float: right; margin-right: 150px;}
+	</style>
+  	<script type="text/javascript"src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript" src="jquery.popupwindow.js"></script>
+   	<script type="text/javascript">
+	var profiles =
+	{
+
+		window800:
+		{
+			height:800,
+			width:800,
+			status:1
+		},
+
+		window200:
+		{
+			height:200,
+			width:200,
+			status:1,
+			resizable:0
+		},
+
+		windowCenter:
+		{
+			height:300,
+			width:400,
+			center:1
+		},
+
+		windowNotNew:
+		{
+			height:300,
+			width:400,
+			center:1,
+			createnew:0
+		},
+
+		windowCallUnload:
+		{
+			height:300,
+			width:400,
+			center:1,
+			onUnload:unloadcallback
+		},
+
+	};
+
+	function unloadcallback(){
+		alert("unloaded");
+	};
+
+
+   	$(function()
+	{
+   		$(".popupwindow").popupwindow(profiles);
+   	});
+	</script>
+</head>
+<body>
+<a href="http://github.com/rip747/popupwindow"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+<div class="download">
+	<a href="http://github.com/rip747/popupwindow/zipball/master"><img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
+	<a href="http://github.com/rip747/popupwindow/tarball/master"><img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+</div>
+<h1>PopUpWindow</h1>
+
+<h2>License</h2>
+<p>Popupwindow is using the <a href="http://github.com/rip747/popupwindow/blob/master/LICENSE">MIT license.</a></p>
+
+<h2>Special Thanks</h2>
+<dl>
+	<dd>Jason Holden (<a href="http://jasonholden.com/" class="popupwindow">jasonholden.com</a>) - getting onUnload events working</dd>
+</dl>
+
+<h2>Examples</h2>
+<p>Takes a link and will create a popupwindow based on the href of the link. You can over ride the default setting by passing your own settings or profile name in the REL attribute of the link.</p>
+<dl>
+	<dt>Default settings:</dt>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow">Example 1</a></dd>
+</dl>
+
+<dl>
+	<dt>Custom settings:</dt>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow" rel="height:400,width:400">Example 1</a> - height:400,width:400</dd>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow" rel="height:550,width:750,toolbar:1,scrollbars:1,status:1,resizable:0,left:50,top:100">Example 2</a> - height:550,width:750,toolbar:1,scrollbars:1,status:1,resizable:0,left:50,top:100</dd>
+</dl>
+
+<dl>
+	<dt>Using profiles:</dt>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow" rel="windowCallUnload">Example 1</a> - window800</dd>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow" rel="window200">Example 2</a> - window200</dd>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow" rel="windowCenter">Example 3</a> - windowCenter</dd>
+</dl>
+
+<dl>
+	<dt>Same window:</dt>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow" rel="windowNotNew">Example 1</a> - windowNotNew</dd>
+	<dd><a href="http://www.jquery.com" class="popupwindow" rel="windowNotNew">Example 2</a> - windowNotNew</dd>
+</dl>
+
+<dl>
+	<dt>onUnload event:</dt>
+	<dd><a href="http://www.ripsdomain.com?popupwindow" class="popupwindow" rel="windowCallUnload">Example 1</a> - windowCallUnload</dd>
+</dl>
+
+<h2>Settings available:</h2>
+<pre>
+height:600, // sets the height in pixels of the window.
+width:600, // sets the width in pixels of the window.
+toolbar:0, // determines whether a toolbar (includes the forward and back buttons) is displayed {1 (YES) or 0 (NO)}.
+scrollbars:0, // determines whether scrollbars appear on the window {1 (YES) or 0 (NO)}.
+status:0, // whether a status line appears at the bottom of the window {1 (YES) or 0 (NO)}.
+resizable:1, // whether the window can be resized {1 (YES) or 0 (NO)}. Can also be overloaded using resizable.
+left:0, // left position when the window appears.
+top:0, // top position when the window appears.
+center:0, // should we center the window? {1 (YES) or 0 (NO)}. overrides top and left
+createnew:1, // should we create a new window for each occurance {1 (YES) or 0 (NO)}.
+location:0, // determines whether the address bar is displayed {1 (YES) or 0 (NO)}.
+menubar:0, // determines whether the menu bar is displayed {1 (YES) or 0 (NO)}.
+onUnload:null // function to call when the window is closed
+</pre>
+
+
+<h2>jQuery code and profiles used in the examples above:</h2>
+<pre>
+var profiles =
+{
+
+	window800:
+	{
+		height:800,
+		width:800,
+		status:1
+	},
+
+	window200:
+	{
+		height:200,
+		width:200,
+		status:1,
+		resizable:0
+	},
+
+	windowCenter:
+	{
+		height:300,
+		width:400,
+		center:1
+	},
+
+	windowNotNew:
+	{
+		height:300,
+		width:400,
+		center:1,
+		createnew:0
+	},
+
+	windowCallUnload:
+	{
+		height:300,
+		width:400,
+		center:1,
+		onUnload:unloadcallback
+	},
+
+};
+
+function unloadcallback(){
+	alert("unloaded");
+};
+
+
+$(function()
+{
+  		$(".popupwindow").popupwindow(profiles);
+});
+</pre>
+</body>
+</html>

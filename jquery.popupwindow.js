@@ -4,7 +4,7 @@ jQuery.fn.popupwindow = function(p)
 	var profiles = p || {};
 
 	return this.each(function(index){
-		var settings, parameters, mysettings, b, a;
+		var settings, parameters, mysettings, b, a, winObj;
 		
 		// for overrideing the default settings
 		mysettings = (jQuery(this).attr("rel") || "").split(",");
@@ -22,7 +22,8 @@ jQuery.fn.popupwindow = function(p)
 			center:0, // should we center the window? {1 (YES) or 0 (NO)}. overrides top and left
 			createnew:1, // should we create a new window for each occurance {1 (YES) or 0 (NO)}.
 			location:0, // determines whether the address bar is displayed {1 (YES) or 0 (NO)}.
-			menubar:0 // determines whether the menu bar is displayed {1 (YES) or 0 (NO)}.
+			menubar:0, // determines whether the menu bar is displayed {1 (YES) or 0 (NO)}.
+			onUnload:null // function to call when the window is closed
 		};
 
 		// if mysettings length is 1 and not a value pair then assume it is a profile declaration
@@ -61,7 +62,22 @@ jQuery.fn.popupwindow = function(p)
 		
 		jQuery(this).bind("click", function(){
 			var name = settings.createnew ? "PopUpWindow" + index : "PopUpWindow";
-			window.open(this.href, name, parameters).focus();
+			winObj = window.open(this.href, name, parameters);
+			
+			if (settings.onUnload) {
+				// Incremental check for window status
+				// Attaching directly to window.onunlaod event causes invoke when document within window is reloaded
+				// (i.e. an inner refresh)
+				unloadInterval = setInterval(function() {
+					if (!winObj || winObj.closed) {
+						clearInterval(unloadInterval);	
+						settings.onUnload.call($(this));
+					}
+				},500);
+			}
+			
+			winObj.focus();
+			
 			return false;
 		});
 	});

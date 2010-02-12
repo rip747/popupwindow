@@ -1,58 +1,10 @@
-/*
-Popupwindow plugin for jQuery.
-by: Tony Petruzzi
-homepage: http://rip747.wordpress.com
-plugin download: http://rip747.wordpress.com/2007/03/02/the-return-of-popupwindow-jquery-plugin/
-
-************************************************************************************
-
-NOTE: the index.html file included in this package gives example on how
-to us the plugin and the different options available.
-
-************************************************************************************
-  
-Takes a link and will create a popupwindow based on the href of the link. You can
-over ride the default setting by passing your own settings or profile name in the
-REL attribute of the link.
-   
-To use just include the plugin in the HEAD section of the page AFTER calling jQuery.
-After that, use jQuery to find the links you want and pass any parameters you want
-
-04/04/2007:
-
-1) added profiles so you don't have to pass the settings for each link anymore.
-2) remove resize as a setting and add the correct setting resizable
-3) removed example text from this file and made an index.htm files to house example.
-4) add example of using profiles to the new examples page.
-5) example pulls the latest jquery library from jquery.com.
-
-05/14/2007
-
-1) removed trailing comma in settings that was causing IE to bottom out with an error.
-
-01/21/2008
-
-1) added new setting "createnew" which when set to false will make all popups open in the same window
-2) fixed a major bug where "settings" wasn't vared.
-
-02/13/2008
-
-1) added location and menubar settings as suggested by Matthew
-
-02/20/2008
-
-1) fixed bug: commas were missing in front of menubar and height attribute
-
-
-*/
-
 jQuery.fn.popupwindow = function(p)
 {
 
 	var profiles = p || {};
 
 	return this.each(function(index){
-		var settings, parameters, mysettings, b, a;
+		var settings, parameters, mysettings, b, a, winObj;
 		
 		// for overrideing the default settings
 		mysettings = (jQuery(this).attr("rel") || "").split(",");
@@ -70,7 +22,8 @@ jQuery.fn.popupwindow = function(p)
 			center:0, // should we center the window? {1 (YES) or 0 (NO)}. overrides top and left
 			createnew:1, // should we create a new window for each occurance {1 (YES) or 0 (NO)}.
 			location:0, // determines whether the address bar is displayed {1 (YES) or 0 (NO)}.
-			menubar:0 // determines whether the menu bar is displayed {1 (YES) or 0 (NO)}.
+			menubar:0, // determines whether the menu bar is displayed {1 (YES) or 0 (NO)}.
+			onUnload:null // function to call when the window is closed
 		};
 
 		// if mysettings length is 1 and not a value pair then assume it is a profile declaration
@@ -109,7 +62,22 @@ jQuery.fn.popupwindow = function(p)
 		
 		jQuery(this).bind("click", function(){
 			var name = settings.createnew ? "PopUpWindow" + index : "PopUpWindow";
-			window.open(this.href, name, parameters).focus();
+			winObj = window.open(this.href, name, parameters);
+			
+			if (settings.onUnload) {
+				// Incremental check for window status
+				// Attaching directly to window.onunlaod event causes invoke when document within window is reloaded
+				// (i.e. an inner refresh)
+				unloadInterval = setInterval(function() {
+					if (!winObj || winObj.closed) {
+						clearInterval(unloadInterval);	
+						settings.onUnload.call($(this));
+					}
+				},500);
+			}
+			
+			winObj.focus();
+			
 			return false;
 		});
 	});
